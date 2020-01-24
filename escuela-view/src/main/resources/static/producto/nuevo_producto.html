@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang='es'>
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <title>GESTION DE PRODUCTOS</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js" th:src="@{/js/jquery-1.11.0.min.js}" ></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+   	
+    <meta name="description" content=""/>
+    <meta name="viewport" content="width=device-width"/>
+</head>
+<body>
+
+	
+	<div class="container">
+	
+	<h1> REGISTRO DE PRODUCTOS </h1>
+
+	</div>
+	
+	<form>
+	<div class="container">
+	
+	  <div class="form-group">
+	    <label for="name" id="">Nombre</label>
+	    <input type="text" class="form-control" id="nombre" placeholder="Ingrese el nombre del producto">
+	    <small id="nameHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+	  </div>
+	  
+	  <div class="form-group">
+	    <label for="cod" id="">Codigo</label>
+	    <input type="text" class="form-control" id="codigo" placeholder="Ingrese el codigo del producto">
+	  </div>
+	  
+	  <div class="form-group">
+	    <label for="cod" id="">Descripcion</label>
+	    <input type="text" class="form-control" id="descripcion" placeholder="Ingrese la descripcion del producto">
+	  </div>
+	  
+	  <div class="form-group">
+	    <label for="precio" id="">Precio</label>
+	    <input type="text" class="form-control" id="precio" placeholder="Ingrese el precio del producto">
+	  </div>
+	  
+	  <div class="form-group">
+		  <label for="estado" id="">Estado</label>
+		  <select class="form-control" id="estado">
+		  	<option value="true">Activo</option>
+		  	<option value="false">Inactivo</option>
+		  </select>
+	  </div>
+
+	  <div class="form-group">
+		  <label for="estado" id="">Tipo de Producto</label>
+		  <select class="form-control" id="tipo_producto">
+		  </select>
+	  </div>
+	  
+	  <div class="form-group">
+		  <label for="estado" id="">Imagen de producto</label>
+		    <input type="file" class="form-control-file" id="img">
+      </div>
+	  
+  		<br>	
+  		<button type="button" class="btn btn-outline-primary btn-lg btn-block" id="registrar">Registrar Nuevo Producto</button>	
+  	</div>
+
+	</form>
+	
+	<script type="text/javascript">
+	$('#registrar').click(function(){
+        var data = { nombre : $('#nombre').val(), codigo : $('#codigo').val(), descripcion : $('#descripcion').val()
+        		, precio : $('#precio').val(), estado : $('#estado').val(), codigo_producto : $('#tipo_producto').val(), ruta_imagen : $('#img').val()};
+        $.ajax({
+                url : 'http://localhost:9090/producto/productos',
+                data : JSON.stringify(data), 
+                method : 'post',
+                dataType : 'json',
+                contentType: "application/json",
+                success : function(response){
+                       //codigo de exito
+                	alert("Producto registrado con exito");
+                },
+                error: function(error){
+                       //codigo error
+                	alert("Fallo al enviar los atributos");
+                }
+        });
+	});
+	</script>
+	
+	<script type="text/javascript">
+			var prefix = "";
+			$.getJSON(prefix + "http://localhost:9090/producto/tipos",   null, displayProduct)  .fail(err);
+
+		    function displayProduct(data) {
+			    for (var i = 0; i < data.length; i++){
+			    	$("#tipo_producto").append('<option value=' + data[i].codigo + '>' + data[i].nombre  + '</option>');
+				}
+		    }
+		    
+		    function err(xhr, status, msg, prefix) {
+				var text = xhr.responseText;
+				var emsg = "<p><b>AJAX Falló obteniendo " + prefix + ": " + xhr.status + " " + msg + "</b><br/></p>";
+				$("#error").append(emsg);
+				$("#error").show();
+			}
+	</script>
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	
+</body>
+</html>

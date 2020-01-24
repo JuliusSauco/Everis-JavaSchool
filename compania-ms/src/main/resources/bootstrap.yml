@@ -1,0 +1,2 @@
+spring:  application:    name: compania-ms  cloud:    config:      uri: http://user:23382b9e-aa93-472d-89da-213562d931f0@localhost:8081
+server:  port: ${PORT:${SERVER_PORT:0}}eureka:  instance:    instanceId: ${spring.cloud.client.hostname}:${spring.application.name}:${spring.application.instance_id:${random.value}}
