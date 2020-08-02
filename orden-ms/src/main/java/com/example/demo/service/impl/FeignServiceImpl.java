@@ -2,7 +2,6 @@ package com.example.demo.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.example.demo.dto.ActualizarStockDTO;
 import com.example.demo.dto.CantidadDTO;
 import com.example.demo.feign.AlmacenClient;
@@ -38,7 +37,6 @@ public class FeignServiceImpl implements FeignService {
 					@HystrixProperty(name = "queueSizeRejectionThreshold", value = "5")})
 	@Override
 	public void actualizarStock(ActualizarStockDTO actualizarStockDTO) {
-		// TODO Auto-generated method stub
 		almacenClient.actualizarStock(actualizarStockDTO);
 	}
 	
@@ -54,7 +52,6 @@ public class FeignServiceImpl implements FeignService {
 					@HystrixProperty(name = "queueSizeRejectionThreshold", value = "5")})
 	@Override
 	public void actualizarStockOrdenBorrado(ActualizarStockDTO actualizarStockDTO) {
-		// TODO Auto-generated method stub
 		
 	}
 	

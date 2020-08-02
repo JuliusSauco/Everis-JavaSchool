@@ -21,21 +21,16 @@ public class OrdenServiceImpl implements OrdenService {
 
 	@Override
 	public Iterable<Orden> listarOrdenesPorFecha(Date fechaEnvio) {
-		// TODO Auto-generated method stub
 		return ordenRepository.despuesDeUnaFecha(fechaEnvio);
 	}
 
 	@Override
 	public Iterable<Orden> listarOrdenDetallePorProducto(Long idProducto) {
-		// TODO Auto-generated method stub
 		return ordenRepository.findByDetalle_IdProducto(idProducto);
-		//return ordenDetalleRepository.listaDeOrdenes(idProducto);
 	}
 
 	@Override
 	public Orden borrarOrden(Long idOrden) throws ResourceNotFoundException {
-		// TODO Auto-generated method stub
-		//Optional<Orden> orden = ordenRepository.findById(idOrden);
 		Orden orden = ordenRepository.findById(idOrden)
 				.orElseThrow(() -> new ResourceNotFoundException("Orden no registrado en la bd"));
 		ordenRepository.delete(orden);
@@ -44,13 +39,10 @@ public class OrdenServiceImpl implements OrdenService {
 
 	@Override
 	public Orden actualizarFechaOrden(Date fecha, Long idOrden) throws ResourceNotFoundException {
-		// TODO Auto-generated method stub
-		
 		Orden orden = ordenRepository.findById(idOrden)
 				.orElseThrow(() -> new ResourceNotFoundException("Orden no registrado en la bd"));
 		orden.setFechaEnvio(fecha);
 		return ordenRepository.save(orden);
 	}
-
 
 }
